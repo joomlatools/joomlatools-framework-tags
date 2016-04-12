@@ -1,14 +1,14 @@
 {
-    "name": "nooku/nooku-tags",
+    "name": "joomlatools/framework-tags",
     "type": "nooku-component",
     "license": "GPLv3",
     "description": "A reusable component for tags management",
     "keywords": [
-        "nooku",
-        "components",
+        "joomla",
+        "component",
         "tags"
     ],
-    "homepage": "https://github.com/nooku/nooku-tags",
+    "homepage": "https://github.com/joomlatools/joomlatools-framework-tags",
     "authors": [
         {
             "name": "Timble",
@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "nooku/nooku-framework": "~2.0",
+        "joomlatools/framework": "~2.1"
     },
     "autoload": {
         "files": ["autoload.php"]

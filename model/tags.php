@@ -1,11 +1,12 @@
 <?php
 /**
- * Nooku Framework - http://nooku.org/framework
+ * Tagging Component for Joomlatools Framework - http://developer.joomlatools.com/framework
  *
  * @copyright   Copyright (C) 2016 Johan Janssens and Timble CVBA. (http://www.timble.net)
  * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
- * @link        http://github.com/nooku/nooku-tags for the canonical source repository
+ * @link        http://github.com/joomlatools/joomlatools-framework-tags for the canonical source repository
  */
+
 /**
  * Tags Model
  *
