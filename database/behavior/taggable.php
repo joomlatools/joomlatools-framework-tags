@@ -48,10 +48,9 @@ class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
         if($context->query->params->has('tag'))
         {
             $package = $this->getMixer()->getIdentifier()->package;
-
-            $query->where('tags.slug = :tag');
-            $query->join('LEFT', $package.'_tags_relations AS tags_relations', 'tags_relations.row = tbl.uuid');
-            $query->join('LEFT', $package.'_tags AS tags', 'tags.tag_id = tags_relations.tag_id');
+            $query->join($package.'_tags_relations AS tags_relations', 'tags_relations.row = tbl.uuid');
+            $query->join($package.'_tags AS tags', 'tags.tag_id = tags_relations.tag_id');
+            $query->where('tags.slug IN :tag');
         }
     }
 }

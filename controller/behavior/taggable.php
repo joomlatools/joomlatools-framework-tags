@@ -54,7 +54,7 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
             if(count($tags))
             {
                 $tags->delete();
-                $tags->clear();
+                $tags->reset();
             }
 
             //Create tags
@@ -62,16 +62,20 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
             {
                 foreach ($entity->tags as $tag)
                 {
-                    $properties = array(
-                        'title' => $tag,
-                        'row'   => $entity->uuid,
+                    $config = array(
+                        'data' => array(
+                                    'title' => $tag,
+                                    'row'   => $entity->uuid,
+                                  ),
+                        'status' => $status,
                     );
 
-                    $tags->insert($properties, $status);
+                    $row = $tags->getTable()->createRow($config);
+
+                    $tags->insert($row);
+                    $tags->save();
                 }
             }
-
-            $tags->save();
         }
     }
 

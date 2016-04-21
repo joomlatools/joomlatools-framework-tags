@@ -18,7 +18,7 @@ CREATE TABLE `#_tags` (
   `params` text NOT NULL,
   PRIMARY KEY (`tag_id`),
   UNIQUE KEY `slug` (`slug`),
-  UNIQUE KEY `title` (`title`),
+  UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -29,6 +29,6 @@ CREATE TABLE `#_tags` (
 
 CREATE TABLE `#_tags_relations` (
 	`tag_id` bigint(20) unsigned NOT NULL,
-  `row` CHAR(36) UNSIGNED NOT NULL,
+  `row` VARCHAR(36) NOT NULL,
   PRIMARY KEY  (`tag_id`,`row`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

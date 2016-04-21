@@ -77,7 +77,7 @@ class ComTagsModelTags extends KModelDatabase
      *
      * @param KDatabaseQuerySelect $query
      */
-    protected function _buildQueryColumns(KDatabaseQuerySelect $query)
+    protected function _buildQueryColumns(KDatabaseQueryInterface $query)
     {
         parent::_buildQueryColumns($query);
 
@@ -98,7 +98,7 @@ class ComTagsModelTags extends KModelDatabase
      *
      * @param KDatabaseQuerySelect $query
      */
-    protected function _buildQueryGroup(KDatabaseQuerySelect $query)
+    protected function _buildQueryGroup(KDatabaseQueryInterface $query)
     {
         $query->group('tbl.slug');
     }
@@ -108,11 +108,12 @@ class ComTagsModelTags extends KModelDatabase
      *
      * @param KDatabaseQuerySelect $query
      */
-    protected function _buildQueryJoins(KDatabaseQuerySelect $query)
+    protected function _buildQueryJoins(KDatabaseQueryInterface $query)
     {
         parent::_buildQueryJoins($query);
 
         $table = $this->getTable()->getName();
+
         $query->join(array('relations' => $table.'_relations'), 'relations.tag_id = tbl.tag_id');
     }
 
@@ -121,7 +122,7 @@ class ComTagsModelTags extends KModelDatabase
      *
      * @param KDatabaseQuerySelect $query
      */
-    protected function _buildQueryWhere(KDatabaseQuerySelect $query)
+    protected function _buildQueryWhere(KDatabaseQueryInterface $query)
     {
         $state = $this->getState();
 

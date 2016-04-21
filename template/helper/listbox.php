@@ -31,8 +31,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'label'	  => 'title',
             'prompt'   => false,
             'deselect' => false,
-        ))->append(array(
-            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->package.'_tags')),
+            'select2' => true,
         ));
 
         $config->label = 'title';
