@@ -23,13 +23,12 @@ class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
      */
     public function getTags()
     {
-        $package = $this->getMixer()->getIdentifier()->package;
-        $model   = $this->getObject('com:tags.model.tags', array('table' => $package.'_tags'));
+        $tags = null;
 
-        if(!$this->isNew()) {
+        if (!$this->isNew()) {
+            $package = $this->getMixer()->getIdentifier()->package;
+            $model = $this->getObject('com:tags.model.tags', array('table' => $package.'_tags'));
             $tags = $model->row($this->uuid)->fetch();
-        } else {
-            $tags = $model->fetch();
         }
 
         return $tags;
