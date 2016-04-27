@@ -65,20 +65,21 @@ class ComTagsControllerTag extends KControllerModel
      * @param KControllerContextInterface   $context A controller context object
      * @return  string|false The rendered output of the view or FALSE if something went wrong
      */
-    protected function _actionRender(KControllerContext $context)
+    protected function _actionRender(KControllerContextInterface $context)
     {
         $view = $this->getView();
 
         if($view instanceof KViewTemplate)
         {
-            $layout         = $view->getIdentifier()->toArray();
-            $layout['name'] = $view->getLayout();
-            unset($layout['path'][0]);
+            $identifier = $view->getIdentifier()->toArray();
 
-            $alias            = $layout;
+            $identifier['name'] = $view->getLayout();
+            unset($identifier['path'][0]);
+
+            $alias            = $identifier;
             $alias['package'] = 'tags';
 
-            $this->getObject('manager')->registerAlias($alias, $layout);
+            $this->getObject('manager')->registerAlias($alias, $identifier);
         }
 
         return parent::_actionRender($context);
