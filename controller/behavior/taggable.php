@@ -26,7 +26,7 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
 
         $this->addCommandCallback('after.add'    , '_setTags');
         $this->addCommandCallback('after.edit'   , '_setTags');
-        $this->addCommandCallback('after.delete' , '_removeTags');
+        $this->addCommandCallback('before.delete' , '_removeTags');
     }
 
     /**
@@ -87,10 +87,10 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
      */
     protected function _removeTags(KControllerContextInterface $context)
     {
-        $entity = $context->result;
+        $entity = $this->getModel()->fetch();
         $status = $entity->getStatus();
 
-        if($entity->isIdentifiable() && $status == $entity::STATUS_DELETED) {
+        if($entity->isIdentifiable() && $status != $entity::STATUS_DELETED) {
             $entity->getTags()->delete();
         }
     }
