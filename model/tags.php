@@ -53,8 +53,10 @@ class ComTagsModelTags extends KModelDatabase
      */
     final public function getTable()
     {
+        $package = $this->getIdentifier()->package;
+
         if(!($this->_table instanceof KDatabaseTableInterface)) {
-            $this->_table = $this->getObject('com:tags.database.table.tags', array('name' => $this->_table));
+            $this->_table = $this->getObject('com:'.$package.'.database.table.tags', array('name' => $this->_table));
         }
 
         return $this->_table;
