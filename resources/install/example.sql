@@ -5,7 +5,7 @@
 -- Table structure for table `[component]_tags`
 --
 
-CREATE TABLE `#_tags` (
+CREATE TABLE `#__tags` (
   `tag_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE `#_tags` (
 -- Table structure for table `[component]_tags_relations`
 --
 
-CREATE TABLE `#_tags_relations` (
+CREATE TABLE `#__tags_relations` (
 	`tag_id` bigint(20) unsigned NOT NULL,
   `row` VARCHAR(36) NOT NULL,
   PRIMARY KEY  (`tag_id`,`row`)
