@@ -32,6 +32,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'prompt'   => false,
             'deselect' => false,
             'select2' => true,
+            'autocomplete' => true
         ));
 
         $config->label = 'title';
