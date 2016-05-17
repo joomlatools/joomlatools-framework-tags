@@ -28,6 +28,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
 
         $config->append(array(
             'identifier' => 'com:tags.model.tags',
+            'package' => $this->getTemplate()->getIdentifier()->package,
             'entity' => null,
             'name' => 'tags[]',
             'value' => 'slug',
