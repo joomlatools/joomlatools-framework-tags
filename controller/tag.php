@@ -22,10 +22,8 @@ class ComTagsControllerTag extends KControllerModel
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $package = $this->getIdentifier()->package;
-
         $config->append(array(
-            'model' => 'com:'.$package.'.model.tags'
+            'model' => 'com:tags.model.tags'
         ));
 
         //Alias the permission
