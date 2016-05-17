@@ -25,11 +25,9 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     public function tags($config = array())
     {
         $config = new KObjectConfig($config);
-        $package = $this->getTemplate()->getIdentifier()->package;
 
         $config->append(array(
-            'identifier' => 'com:'.$package.'.model.tags',
-            'package' => $package,
+            'identifier' => 'com:tags.model.tags',
             'entity' => null,
             'name' => 'tags[]',
             'value' => 'slug',
