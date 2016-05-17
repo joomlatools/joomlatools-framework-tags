@@ -30,7 +30,7 @@ class ComTagsControllerTag extends KControllerModel
         $permission         = $this->getIdentifier()->toArray();
         $permission['path'] = array('controller', 'permission');
 
-        $this->getObject('manager')->registerAlias('com:'.$package.'.controller.permission.tag', $permission);
+        $this->getObject('manager')->registerAlias('com:tags.controller.permission.tag', $permission);
 
         parent::_initialize($config);
     }
@@ -74,11 +74,10 @@ class ComTagsControllerTag extends KControllerModel
             $identifier = $view->getIdentifier()->toArray();
 
             $identifier['name'] = $view->getLayout();
-
             unset($identifier['path'][0]);
 
             $alias            = $identifier;
-            $alias['package'] = $identifier['package'];
+            $alias['package'] = 'tags';
 
             $this->getObject('manager')->registerAlias($alias, $identifier);
         }
