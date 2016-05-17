@@ -54,12 +54,6 @@ class ComTagsModelEntityTag extends KModelEntityRow
                 $relation = $table->createRow(array('data' => $data));
 
                 $result = $table->insert($relation);
-
-                if ($result)
-                {
-                    $tag->count += 1;
-                    $result = $tag->save();
-                }
             }
         }
         else $result = parent::save();
