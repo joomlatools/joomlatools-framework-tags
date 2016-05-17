@@ -43,7 +43,6 @@ class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
     protected function _beforeSelect(KDatabaseContext $context)
     {
         $query = $context->query;
-
         if($context->query->params->has('tag'))
         {
             $package = $this->getMixer()->getIdentifier()->package;

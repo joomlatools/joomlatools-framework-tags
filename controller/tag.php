@@ -22,11 +22,11 @@ class ComTagsControllerTag extends KControllerModel
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $package = $this->getIdentifier()->package;
-
-        $config->append(array(
-            'model' => 'com:'.$package.'.model.tags'
-        ));
+        $config->model = 'com:'.$this->getIdentifier()->package.'.model.tags';
+        //If no specialised model exists use default
+        if(!$this->getObject('manager')->getClass($config->model, false)) {
+            $config->model = 'com:tags.model.tags';
+        }
 
         //Alias the permission
         $permission         = $this->getIdentifier()->toArray();
@@ -57,33 +57,5 @@ class ComTagsControllerTag extends KControllerModel
         }
 
         return $this->_model;
-    }
-
-    /**
-     * Render action
-     *
-     * This method will map the view identifier to that of the integrating components.
-     *
-     * @param KControllerContextInterface   $context A controller context object
-     * @return  string|false The rendered output of the view or FALSE if something went wrong
-     */
-    protected function _actionRender(KControllerContextInterface $context)
-    {
-        $view = $this->getView();
-
-        if($view instanceof KViewTemplate)
-        {
-            $identifier = $view->getIdentifier()->toArray();
-
-            $identifier['name'] = $view->getLayout();
-            unset($identifier['path'][0]);
-
-            $alias            = $identifier;
-            $alias['package'] = 'tags';
-
-            $this->getObject('manager')->registerAlias($alias, $identifier);
-        }
-
-        return parent::_actionRender($context);
     }
 }

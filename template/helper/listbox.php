@@ -26,10 +26,26 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     {
         $config = new KObjectConfig($config);
 
+/*
+        $config->append(array(
+            'package' => $this->getIdentifier()->package,
+            'value'	  => 'title',
+            'label'	  => 'title',
+            'prompt'   => false,
+            'deselect' => false,
+        ))->append(array(
+            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->package.'_tags')),
+        ));
+        $config->label = 'title';
+        $config->sort  = 'title';
+        return parent::_render($config);
+*/
+
         $config->append(array(
             'identifier' => 'com:tags.model.tags',
             'package' => $this->getTemplate()->getIdentifier()->package,
             'entity' => null,
+            'model' => null,
             'name' => 'tags[]',
             'value' => 'slug',
             'label' => 'title',
@@ -45,13 +61,23 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             ))->append(array(
             'options' => array(
               'tags' => $config->can_create
-            )
+            ),
+            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->package.'_tags'))
         ));
 
         if ($config->entity){
             $config->append(array(
                 'selected' => $config->entity->getTags(),
             ));
+        }
+
+        if (!$config->url)
+        {
+            $config->url = $this->getTemplate()->route(array(
+                'component' => $config->package,
+                'view' => 'tags',
+                'format' => 'json'
+            ), false, false);
         }
 
         return parent::_render($config);
