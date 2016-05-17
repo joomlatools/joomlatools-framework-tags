@@ -25,18 +25,35 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     public function tags($config = array())
     {
         $config = new KObjectConfig($config);
+        $package = $this->getTemplate()->getIdentifier()->package;
+
         $config->append(array(
-            'package' => $this->getTemplate()->getIdentifier()->package,
-            'value'	  => 'title',
-            'label'	  => 'title',
-            'prompt'   => false,
+            'identifier' => 'com:'.$package.'.model.tags',
+            'package' => $package,
+            'entity' => null,
+            'name' => 'tags[]',
+            'value' => 'slug',
+            'label' => 'title',
+            'sort' => 'title',
+            'prompt' => false,
             'deselect' => false,
             'select2' => true,
-            'autocomplete' => true
+            'can_create' => false,
+            'autocomplete' => true,
+            'attribs' => array(
+                'multiple' => true
+            ),
+            ))->append(array(
+            'options' => array(
+              'tags' => $config->can_create
+            )
         ));
 
-        $config->label = 'title';
-        $config->sort  = 'title';
+        if ($config->entity){
+            $config->append(array(
+                'selected' => $config->entity->getTags(),
+            ));
+        }
 
         return parent::_render($config);
     }
