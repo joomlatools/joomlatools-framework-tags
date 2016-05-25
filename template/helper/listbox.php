@@ -25,60 +25,52 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     public function tags($config = array())
     {
         $config = new KObjectConfig($config);
-
-/*
         $config->append(array(
-            'package' => $this->getIdentifier()->package,
-            'value'	  => 'title',
-            'label'	  => 'title',
+            'autocomplete' => true,
+            'autocreate'   => true,
+            'component'    => $this->getIdentifier()->package,
+            'entity'   => null,
+            'name'     => 'tags',
+            'value'    => 'title',
             'prompt'   => false,
             'deselect' => false,
-        ))->append(array(
-            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->package.'_tags')),
-        ));
-        $config->label = 'title';
-        $config->sort  = 'title';
-        return parent::_render($config);
-*/
-
-        $config->append(array(
-            'identifier' => 'com:tags.model.tags',
-            'package' => $this->getTemplate()->getIdentifier()->package,
-            'entity' => null,
-            'model' => null,
-            'name' => 'tags[]',
-            'value' => 'slug',
-            'label' => 'title',
-            'sort' => 'title',
-            'prompt' => false,
-            'deselect' => false,
-            'select2' => true,
-            'can_create' => false,
-            'autocomplete' => true,
-            'attribs' => array(
+            'attribs'  => array(
                 'multiple' => true
             ),
-            ))->append(array(
+        ))->append(array(
+            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->component.'_tags')),
             'options' => array(
-              'tags' => $config->can_create
+                'tokenSeparators' => array(',', ' '),
+                'tags'            => $config->autocreate
             ),
-            'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->package.'_tags'))
         ));
 
-        if ($config->entity){
+        //Set the selected tags
+        if ($config->entity instanceof KModelEntityInterface && $config->entity->isTaggable())
+        {
             $config->append(array(
                 'selected' => $config->entity->getTags(),
             ));
         }
 
-        if (!$config->url)
+        //Set the autocompplete url
+        if ($config->autocomplete)
         {
-            $config->url = $this->getTemplate()->route(array(
-                'component' => $config->package,
-                'view' => 'tags',
-                'format' => 'json'
-            ), false, false);
+            $parts = array(
+                'component' => $config->component,
+                'view'      => 'tags',
+            );
+
+            if ($config->filter) {
+                $parts = array_merge($parts, KObjectConfig::unbox($config->filter));
+            }
+
+            $config->url = $this->getTemplate()->route($parts, false, false);
         }
+
+        //Do not allow to override label and sort
+        $config->label = 'title';
+        $config->sort  = 'title';
 
         return parent::_render($config);
     }

@@ -22,11 +22,9 @@ class ComTagsControllerTag extends KControllerModel
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $config->model = 'com:'.$this->getIdentifier()->package.'.model.tags';
-        //If no specialised model exists use default
-        if(!$this->getObject('manager')->getClass($config->model, false)) {
-            $config->model = 'com:tags.model.tags';
-        }
+        $config->append(array(
+            'model' => 'com:tags.model.tags'
+        ));
 
         //Alias the permission
         $permission         = $this->getIdentifier()->toArray();
