@@ -41,7 +41,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->component.'_tags')),
             'options' => array(
                 'tokenSeparators' => array(',', ' '),
-                'tags'            => $config->autocreate
+                'tags'            => $config->autocreate ? 'true' : 'false'
             ),
         ));
 
