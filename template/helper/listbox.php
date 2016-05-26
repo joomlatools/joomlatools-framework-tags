@@ -7,7 +7,6 @@
  * @link        http://github.com/joomlatools/joomlatools-framework-tags for the canonical source repository
  */
 
-
 /**
  * Listbox Template Helper
  *
@@ -30,6 +29,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'autocreate'   => true,
             'component'    => $this->getIdentifier()->package,
             'entity'   => null,
+            'filter'   => array(),
             'name'     => 'tags',
             'value'    => 'title',
             'prompt'   => false,
@@ -49,7 +49,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
         if ($config->entity instanceof KModelEntityInterface && $config->entity->isTaggable())
         {
             $config->append(array(
-                'selected' => $config->entity->getTags(),
+                'selected' => $config->entity->getTags()
             ));
         }
 
@@ -59,6 +59,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             $parts = array(
                 'component' => $config->component,
                 'view'      => 'tags',
+                'format'    => 'json'
             );
 
             if ($config->filter) {
