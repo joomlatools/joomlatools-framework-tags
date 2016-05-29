@@ -87,11 +87,15 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
      */
     protected function _removeTags(KControllerContextInterface $context)
     {
-        $entity = $this->getModel()->fetch();
-        $status = $entity->getStatus();
+        $entities = $this->getModel()->fetch();
 
-        if($entity->isIdentifiable() && $status != $entity::STATUS_DELETED) {
-            $entity->getTags()->delete();
+        foreach ($entities as $entity)
+        {
+            $status = $entity->getStatus();
+
+            if ($entity->isIdentifiable() && $status != $entity::STATUS_DELETED) {
+                $entity->getTags()->delete();
+            }
         }
     }
 }
