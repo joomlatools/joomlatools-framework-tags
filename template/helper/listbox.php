@@ -45,11 +45,13 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             ),
         ));
 
+        $entity = $config->entity;
+
         //Set the selected tags
-        if ($config->entity instanceof KModelEntityInterface && $config->entity->isTaggable())
+        if ($entity instanceof KModelEntityInterface && $entity->isTaggable() && !$entity->isNew())
         {
             $config->append(array(
-                'selected' => $config->entity->getTags()
+                'selected' => $entity->getTags()
             ));
         }
 

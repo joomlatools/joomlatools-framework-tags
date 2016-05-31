@@ -37,43 +37,46 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
      */
     protected function _setTags(KControllerContextInterface $context)
     {
-        $entity = $context->result;
+        $entities = $context->result;
 
-        if ($entity->isIdentifiable() && !$context->response->isError())
+        foreach($entities as $entity)
         {
-            $tags   = $entity->getTags();
-
-            $package = $this->getMixer()->getIdentifier()->package;
-            if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
-                $status  = KDatabase::STATUS_FETCHED;
-            } else {
-                $status = null;
-            }
-
-            //Delete tags
-            if(count($tags))
+            if ($entity->isIdentifiable() && !$context->response->isError())
             {
-                $tags->delete();
-                $tags->reset();
-            }
+                $tags = $entity->getTags();
 
-            //Create tags
-            if($entity->tags)
-            {
-                foreach ($entity->tags as $tag)
+                $package = $this->getMixer()->getIdentifier()->package;
+                if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
+                    $status  = KDatabase::STATUS_FETCHED;
+                } else {
+                    $status = null;
+                }
+
+                //Delete tags
+                if(count($tags))
                 {
-                    $config = array(
-                        'data' => array(
-                                    'title' => $tag,
-                                    'row'   => $entity->uuid,
-                                  ),
-                        'status' => $status,
-                    );
+                    $tags->delete();
+                    $tags->reset();
+                }
 
-                    $row = $tags->getTable()->createRow($config);
+                //Create tags
+                if($entity->tags)
+                {
+                    foreach ($entity->tags as $tag)
+                    {
+                        $config = array(
+                            'data' => array(
+                                        'title' => $tag,
+                                        'row'   => $entity->uuid,
+                                      ),
+                            'status' => $status,
+                        );
 
-                    $tags->insert($row);
-                    $tags->save();
+                        $row = $tags->getTable()->createRow($config);
+
+                        $tags->insert($row);
+                        $tags->save();
+                    }
                 }
             }
         }
