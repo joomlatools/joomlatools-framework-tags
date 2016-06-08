@@ -25,7 +25,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     {
         $config = new KObjectConfig($config);
         $config->append(array(
-            'autocomplete' => true,
+            'autocomplete' => false,
             'autocreate'   => true,
             'component'    => $this->getIdentifier()->package,
             'entity'   => null,
@@ -37,12 +37,17 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'attribs'  => array(
                 'multiple' => true
             ),
-        ))->append(array(
+        ))->append(array( // For autocomplete helper
             'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->component.'_tags')),
             'options' => array(
                 'tokenSeparators' => ($config->autocreate) ? array(',', ' ') : array(),
                 'tags' => $config->autocreate,
             ),
+        ))->append(array( // For listbox helper
+            'select2'      => true,
+            'select2_options' => array(
+                'options' => $config->options
+            )
         ));
 
         $entity = $config->entity;
