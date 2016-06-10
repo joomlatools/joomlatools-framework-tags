@@ -30,6 +30,20 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
     }
 
     /**
+     * High priority is used so that the table object is made taggable before paginatable kicks in
+     *
+     * @param KObjectConfig $config
+     */
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append(array(
+            'priority' => KBehaviorAbstract::PRIORITY_HIGH
+        ));
+
+        parent::_initialize($config);
+    }
+
+    /**
      * Insert the model states
      *
      * @param KObjectMixable $mixer
@@ -71,5 +85,14 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
                 $context->query->bind(array('tag' => $state->tag));
             }
         }
+    }
+
+    /**
+     * Bind the tag to query
+     * @param KModelContextInterface $context
+     */
+    protected function _beforeCount(KModelContextInterface $context)
+    {
+        $this->_beforeFetch($context);
     }
 }
