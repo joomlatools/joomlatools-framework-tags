@@ -31,7 +31,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             'entity'   => null,
             'filter'   => array(),
             'name'     => 'tags',
-            'value'    => 'title',
+            'value'    => 'slug',
             'prompt'   => false,
             'deselect' => false,
             'attribs'  => array(
