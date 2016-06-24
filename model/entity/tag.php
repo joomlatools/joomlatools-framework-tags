@@ -91,6 +91,8 @@ class ComTagsModelEntityTag extends KModelEntityRow
                     $result = parent::delete();
                 }
             }
+        } elseif(!$this->row) {
+            $result = parent::delete();
         }
 
         return $result;
