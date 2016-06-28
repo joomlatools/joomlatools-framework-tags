@@ -26,7 +26,8 @@ class ComTagsModelTags extends KModelDatabase
 
         // Set the state
         $this->getState()
-            ->insert('row', 'cmd');
+            ->insert('row', 'cmd')
+            ->insert('created_by', 'int');
     }
 
     /**
@@ -126,8 +127,14 @@ class ComTagsModelTags extends KModelDatabase
     {
         $state = $this->getState();
 
-        if($this->getState()->row) {
+        if($state->row) {
             $query->where('relations.row IN :row')->bind(array('row' => (array) $this->getState()->row));
+        }
+
+        if ($state->created_by)
+        {
+            $query->where('tbl.created_by IN :created_by')
+                ->bind(array('created_by' => (array) $state->created_by));
         }
 
         parent::_buildQueryWhere($query);
