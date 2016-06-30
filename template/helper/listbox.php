@@ -80,6 +80,27 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
         $config->label = 'title';
         $config->sort  = 'title';
 
-        return parent::_render($config);
+        $html = parent::_render($config);
+
+        $html .= "<script>
+        kQuery(function($) {
+            var element = $('select[name=\"{$config->name}[]\"]');
+            
+            if (element.length) {
+                var form = $(element[0].form);
+                
+                form.submit(function() {
+                    if (!element.val()) {
+                        $('<input />')
+                            .attr('name', '{$config->name}')
+                            .attr('type', 'hidden')
+                            .val('')
+                            .appendTo(form);
+                    }
+                });
+            }
+        });</script>";
+
+        return $html;
     }
 }
