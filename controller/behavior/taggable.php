@@ -32,50 +32,57 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
     /**
      * Set the tags for an entity
      *
+     * If the request data contains a tags array, it will be used as the new tag list.
+     * If the tags field is an empty string, all entity tags are deleted and no new ones are added.
+     *
      * @param KControllerContextInterface $context
      * @return bool
      */
     protected function _setTags(KControllerContextInterface $context)
     {
         $entities = $context->result;
+        $data     = $context->getRequest()->getData();
 
-        foreach($entities as $entity)
+        if ($data->has('tags'))
         {
-            if ($entity->isIdentifiable() && !$context->response->isError())
+            foreach($entities as $entity)
             {
-                $tags = $entity->getTags();
-
-                $package = $this->getMixer()->getIdentifier()->package;
-                if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
-                    $status  = KDatabase::STATUS_FETCHED;
-                } else {
-                    $status = null;
-                }
-
-                //Delete tags
-                if(count($tags))
+                if ($entity->isIdentifiable() && !$context->response->isError())
                 {
-                    $tags->delete();
-                    $tags->reset();
-                }
+                    $tags = $entity->getTags();
 
-                //Create tags
-                if($entity->tags)
-                {
-                    foreach ($entity->tags as $tag)
+                    $package = $this->getMixer()->getIdentifier()->package;
+                    if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
+                        $status  = KDatabase::STATUS_FETCHED;
+                    } else {
+                        $status = null;
+                    }
+
+                    //Delete tags
+                    if(count($tags))
                     {
-                        $config = array(
-                            'data' => array(
-                                        'title' => $tag,
-                                        'row'   => $entity->uuid,
-                                      ),
-                            'status' => $status,
-                        );
+                        $tags->delete();
+                        $tags->reset();
+                    }
 
-                        $row = $tags->getTable()->createRow($config);
+                    //Create tags
+                    if($entity->tags)
+                    {
+                        foreach ($entity->tags as $tag)
+                        {
+                            $config = array(
+                                'data' => array(
+                                    'title' => $tag,
+                                    'row'   => $entity->uuid,
+                                ),
+                                'status' => $status,
+                            );
 
-                        $tags->insert($row);
-                        $tags->save();
+                            $row = $tags->getTable()->createRow($config);
+
+                            $tags->insert($row);
+                            $tags->save();
+                        }
                     }
                 }
             }
