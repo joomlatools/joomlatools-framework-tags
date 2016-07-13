@@ -49,8 +49,6 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
             {
                 if ($entity->isIdentifiable() && !$context->response->isError())
                 {
-                    $tags = $entity->getTags();
-
                     $package = $this->getMixer()->getIdentifier()->package;
                     if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
                         $status  = KDatabase::STATUS_FETCHED;
@@ -58,32 +56,60 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
                         $status = null;
                     }
 
-                    //Delete tags
-                    if(count($tags))
-                    {
-                        $tags->delete();
-                        $tags->reset();
+                    $tags      = $entity->getTags();
+                    $operation = $entity->tags_operation;
+
+                    if (!in_array($entity->tags_operation, array('append', 'replace', 'remove'))) {
+                        $operation = 'replace';
                     }
 
-                    //Create tags
-                    if($entity->tags)
+                    if ($operation === 'remove')
                     {
-                        foreach ($entity->tags as $tag)
-                        {
-                            $config = array(
-                                'data' => array(
-                                    'title' => $tag,
-                                    'row'   => $entity->uuid,
-                                ),
-                                'status' => $status,
-                            );
-
-                            $row = $tags->getTable()->createRow($config);
-
-                            $tags->insert($row);
-                            $tags->save();
+                        foreach ($tags as $tag) {
+                            if (in_array($tag->title, $entity->tags)) {
+                                $tag->delete();
+                            }
                         }
                     }
+                    else {
+                        //Delete tags
+                        if($operation === 'replace' && count($tags))
+                        {
+                            $tags->delete();
+                            $tags->reset();
+                        }
+
+                        $existing = array();
+                        foreach ($tags as $tag) {
+                            $existing[] = $tag->title;
+                        }
+
+                        //Create tags
+                        if($entity->tags)
+                        {
+                            foreach ($entity->tags as $tag)
+                            {
+                                if (in_array($tag, $existing)) {
+                                    continue;
+                                }
+
+                                $config = array(
+                                    'data' => array(
+                                        'title' => $tag,
+                                        'row'   => $entity->uuid,
+                                    ),
+                                    'status' => $status,
+                                );
+
+                                $row = $tags->getTable()->createRow($config);
+
+                                $tags->insert($row);
+                                $tags->save();
+                            }
+                        }
+                    }
+
+
                 }
             }
         }
