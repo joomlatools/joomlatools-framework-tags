@@ -58,8 +58,9 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
                         $this->_removeTags($entity);
                     } else if ($operation === 'append') {
                         $this->_appendTags($entity);
+                    } else {
+                        $this->_replaceTags($entity);
                     }
-                    else $this->_replaceTags($entity);
                 }
             }
         }
@@ -104,7 +105,7 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
         foreach ($tags as $tag) {
             $existing[] = $tag->title;
         }
-        
+
         //Create tags
         if($entity->tags)
         {
@@ -138,7 +139,8 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
     {
         $tags = $entity->getTags();
 
-        foreach ($tags as $tag) {
+        foreach ($tags as $tag)
+        {
             if (in_array($tag->title, $entity->tags)) {
                 $tag->delete();
             }
