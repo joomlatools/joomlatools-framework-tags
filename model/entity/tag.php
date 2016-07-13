@@ -81,17 +81,13 @@ class ComTagsModelEntityTag extends KModelEntityRow
 
         $rowset = $table->select($query);
 
-        if($rowset->count())
-        {
-            //Delete the relations
-            if($result = $rowset->delete())
-            {
-                //Delete the tag
-                if(!$this->row) {
-                    $result = parent::delete();
-                }
-            }
-        } elseif(!$this->row) {
+        //Delete the relations
+        if($rowset->count()) {
+            $result = $rowset->delete();
+        }
+
+        //Delete the tag
+        if(!$this->row) {
             $result = parent::delete();
         }
 
