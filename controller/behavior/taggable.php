@@ -118,7 +118,7 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
                 $config = array(
                     'data' => array(
                         'title' => $tag,
-                        'row'   => $entity->uuid,
+                        'uuid'  => $entity->uuid,
                     ),
                     'status' => $status,
                 );

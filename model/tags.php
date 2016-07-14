@@ -26,7 +26,7 @@ class ComTagsModelTags extends KModelDatabase
 
         // Set the state
         $this->getState()
-            ->insert('row', 'cmd')
+            ->insert('uuid'      , 'cmd')
             ->insert('created_by', 'int');
     }
 
@@ -86,10 +86,10 @@ class ComTagsModelTags extends KModelDatabase
             'count' => 'COUNT( relations.tag_id )'
         ));
 
-        if($this->getState()->row)
+        if($this->getState()->uuid)
         {
             $query->columns(array(
-                'row' => 'relations.row'
+                'uuid' => 'relations.uuid'
             ));
         }
     }
@@ -127,8 +127,8 @@ class ComTagsModelTags extends KModelDatabase
     {
         $state = $this->getState();
 
-        if($state->row) {
-            $query->where('relations.row IN :row')->bind(array('row' => (array) $this->getState()->row));
+        if($this->getState()->uuid) {
+            $query->where('relations.uuid IN :uuid')->bind(array('uuid' => (array) $this->getState()->uuid));
         }
 
         if ($state->created_by)

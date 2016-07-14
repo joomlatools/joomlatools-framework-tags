@@ -27,7 +27,7 @@ class ComTagsModelEntityTag extends KModelEntityRow
     {
         $result = true;
 
-        if($this->row)
+        if($this->uuid)
         {
             $tag = $this->getTable()->select(array('title' => $this->title), KDatabase::FETCH_ROW);
 
@@ -36,7 +36,7 @@ class ComTagsModelEntityTag extends KModelEntityRow
             {
                 //Unset the row property
                 $properties = $this->getProperties();
-                unset($properties['row']);
+                unset($properties['uuid']);
 
                 $result = $tag->setProperties($properties)->save();
             }
@@ -46,15 +46,15 @@ class ComTagsModelEntityTag extends KModelEntityRow
             {
                 $data = array(
                     'tag_id' => $tag->id,
-                    'row'    => $this->row,
+                    'uuid'   => $this->uuid,
                 );
 
                 $name     = $this->getTable()->getName().'_relations';
                 $table    = $this->getObject('com:tags.database.table.relations', array('name' => $name));
 
-                if (!$table->count($data)) {
+                if (!$table->count($data))
+                {
                     $relation = $table->createRow(array('data' => $data));
-
                     $result = $table->insert($relation);
                 }
             }
@@ -76,8 +76,8 @@ class ComTagsModelEntityTag extends KModelEntityRow
         $name   = $this->getTable()->getName().'_relations';
         $table  = $this->getObject('com:tags.database.table.relations', array('name' => $name));
 
-        if($this->row) {
-            $query = array('tag_id' => $this->id, 'row' => $this->row);
+        if($this->uuid) {
+            $query = array('tag_id' => $this->id, 'uuid' => $this->uuid);
         } else {
             $query = array('tag_id' => $this->id);
         }
@@ -90,7 +90,7 @@ class ComTagsModelEntityTag extends KModelEntityRow
         }
 
         //Delete the tag
-        if(!$this->row) {
+        if(!$this->uuid) {
             $result = parent::delete();
         }
 
