@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "joomlatools/framework": "~2.1"
+        "joomlatools/framework": "~3.0"
     },
     "autoload": {
         "files": ["autoload.php"]
