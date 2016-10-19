@@ -24,6 +24,12 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
     public function tags($config = array())
     {
         $config = new KObjectConfig($config);
+
+        // '0' is false in PHP but true in JavaScript so we need to cast to boolean here
+        if (isset($config->autocreate)) {
+            $config->autocreate = (boolean) $config->autocreate;
+        }
+
         $config->append(array(
             'autocomplete' => false,
             'autocreate'   => true,
@@ -49,9 +55,6 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
                 'options' => $config->options
             )
         ));
-
-        // '0' is false in PHP but true in JavaScript so we need to cast to boolean here
-        $config->autocreate = (boolean) $config->autocreate;
 
         $entity = $config->entity;
 
