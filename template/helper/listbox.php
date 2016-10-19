@@ -50,6 +50,9 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
             )
         ));
 
+        // '0' is false in PHP but true in JavaScript so we need to cast to boolean here
+        $config->autocreate = (boolean) $config->autocreate;
+
         $entity = $config->entity;
 
         //Set the selected tags
