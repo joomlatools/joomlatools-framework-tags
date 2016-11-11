@@ -27,6 +27,7 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
 
         $this->addCommandCallback('before.create' , '_makeTaggable');
         $this->addCommandCallback('before.fetch'  , '_makeTaggable');
+        $this->addCommandCallback('before.count'  , '_makeTaggable');
     }
 
     /**
