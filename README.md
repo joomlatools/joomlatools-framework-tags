@@ -4,8 +4,8 @@ This is a re-usable component that offers tag management for [Joomlatools Framew
 
 ## Requirements
 
-- Joomlatools Framework 2 or newer
-- PHP 5.3 or newer
+- Joomlatools Framework 3
+- PHP 5.4 or newer
 - MySQL 5
 
 ## Installation
