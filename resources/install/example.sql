@@ -1,4 +1,3 @@
-
 -- --------------------------------------------------------
 
 --
@@ -29,6 +28,6 @@ CREATE TABLE `#__tags` (
 
 CREATE TABLE `#__tags_relations` (
 	`tag_id` bigint(20) unsigned NOT NULL,
-  `row` VARCHAR(36) NOT NULL,
-  PRIMARY KEY  (`tag_id`,`row`)
+  `uuid` VARCHAR(36) NOT NULL,
+  PRIMARY KEY  (`tag_id`,`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
