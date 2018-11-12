@@ -38,7 +38,8 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority' => KBehaviorAbstract::PRIORITY_HIGH
+            'priority' => KBehaviorAbstract::PRIORITY_HIGH,
+            'strict'   => false
         ));
 
         parent::_initialize($config);
@@ -65,7 +66,7 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
     protected function _makeTaggable(KModelContextInterface $context)
     {
         $model = $context->getSubject();
-        $model->getTable()->addBehavior('com:tags.database.behavior.taggable');
+        $model->getTable()->addBehavior('com:tags.database.behavior.taggable', array('strict' => $this->getConfig()->strict));
     }
 
     /**
