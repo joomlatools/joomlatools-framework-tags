@@ -16,6 +16,13 @@
  */
 class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
 {
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append(array('strict' => false));
+
+        parent::_initialize($config);
+    }
+
     /**
      * Get a list of tags
      *
@@ -51,6 +58,10 @@ class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
             $query->join($package.'_tags_relations AS tags_relations', 'tags_relations.row = tbl.uuid');
             $query->join($package.'_tags AS tags', 'tags.tag_id = tags_relations.tag_id');
             $query->where('tags.slug IN :tag');
+
+            if ($this->getConfig()->strict) {
+                $query->group('tbl.uuid')->having('COUNT(*) = :tag_count')->bind(array('tag_count' => count((array) $query->getParameters()->tag)));
+            }
         }
     }
 }
