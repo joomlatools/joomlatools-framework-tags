@@ -66,7 +66,11 @@ class ComTagsModelBehaviorTaggable extends KModelBehaviorAbstract
     protected function _makeTaggable(KModelContextInterface $context)
     {
         $model = $context->getSubject();
-        $model->getTable()->addBehavior('com:tags.database.behavior.taggable', array('strict' => $this->getConfig()->strict));
+
+        $model->getTable()->addBehavior('com:tags.database.behavior.taggable', array(
+            'tags'   => $model->getState()->tag,
+            'strict' => $this->getConfig()->strict
+        ));
     }
 
     /**
