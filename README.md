@@ -14,7 +14,7 @@ Install by using [Composer](https://getcomposer.org/). Go to the root directory 
 command line and execute this command:
 
 ```
-composer require joomlatools/joomlatools-framework-tags:1.*
+composer require joomlatools/framework-tags:1.*
 ```
 
 The component will be installed in the `vendor` folder of the root directory of your Joomla site. The composer installer 
