@@ -67,7 +67,7 @@ class ComTagsDatabaseBehaviorTaggable extends KDatabaseBehaviorAbstract
                           ->bind(array("tag{$i}" => $tags[$i]));
                 }
             }
-            else $query->join($package . '_tags_relations AS tags_relations', 'tags_relations{$i}.row = tbl.uuid')
+            else $query->join($package . '_tags_relations AS tags_relations', 'tags_relations.row = tbl.uuid')
                       ->join($package . '_tags AS tags', 'tags.tag_id = tags_relations.tag_id')
                       ->where('tags.slug IN :tag');
         }
