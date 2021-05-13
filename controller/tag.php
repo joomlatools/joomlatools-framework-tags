@@ -26,16 +26,6 @@ class ComTagsControllerTag extends KControllerModel
             'model' => 'com:tags.model.tags'
         ));
 
-        //Alias the permission
-        $path       = $this->getObject('request')->getUrl()->getPath();
-        $path       = array_filter(explode('/', $path));
-        $domain     = array_shift($path) == 'administator' ? 'admin' : 'site';
-        $package    = $this->getIdentifier()->getPackage();
-        $name       = $this->getIdentifier()->getName();
-        $identifier = sprintf('com://%s/%s.controller.permission.%s', $domain, $package, $name);
-
-        $this->getObject('manager')->registerAlias('com:tags.controller.permission.tag', $identifier);
-
         parent::_initialize($config);
     }
 
