@@ -92,8 +92,17 @@ class ComTagsControllerBehaviorTaggable extends KBehaviorAbstract
      */
     protected function _appendTags(KModelEntityInterface $entity)
     {
-        $package = $this->getMixer()->getIdentifier()->package;
-        if(!$this->getObject('com:'.$package.'.controller.tag')->canAdd()) {
+        $identifier = [
+            'type' => 'com',
+            'package' => $this->getMixer()->getIdentifier()->package,
+            'path' => ['controller', 'tag'],
+        ];
+
+        if ($domain = $this->getMixer()->getIdentifier()->domain) {
+            $identifier['domain'] = $domain;
+        }
+
+        if(!$this->getObject($identifier)->canAdd()) {
             $status  = KDatabase::STATUS_FETCHED;
         } else {
             $status = null;
