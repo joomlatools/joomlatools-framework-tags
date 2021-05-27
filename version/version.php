@@ -15,7 +15,7 @@
  */
 class ComTagsVersion extends KObject
 {
-    const VERSION = '1.2.1';
+    const VERSION = '1.2.2';
 
     /**
      * Get the version.
