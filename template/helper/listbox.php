@@ -46,7 +46,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
         ))->append(array( // For autocomplete helper
             'model'  => $this->getObject('com:tags.model.tags', array('table' => $config->component.'_tags')),
             'options' => array(
-                'tokenSeparators' => ($config->autocreate) ? array(',', ' ') : array(),
+                'tokenSeparators' => ($config->autocreate) ? array(',', '\n', '\t') : array(),
                 'tags' => $config->autocreate,
             ),
         ))->append(array( // For listbox helper
