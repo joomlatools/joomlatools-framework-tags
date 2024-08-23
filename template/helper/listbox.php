@@ -96,13 +96,11 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
                 var form = $(element[0].form);
                 
                 form.submit(function() {
-                    if (!element.val()) {
-                        $('<input />')
-                            .attr('name', '{$config->name}')
-                            .attr('type', 'hidden')
-                            .val('')
-                            .appendTo(form);
-                    }
+                    $('<input />')
+                        .attr('name', '{$config->name}')
+                        .attr('type', 'hidden')
+                        .val('')
+                        .appendTo(form);
                 });
             }
         });</script>";
