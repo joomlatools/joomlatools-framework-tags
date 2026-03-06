@@ -4,8 +4,8 @@ This is a re-usable component that offers tag management for [Joomlatools Framew
 
 ## Requirements
 
-- Joomlatools Framework 3
-- PHP 5.4 or newer
+- Joomlatools Framework 3 or newer
+- PHP 7.3 or newer
 - MySQL 5
 
 ## Installation
@@ -21,7 +21,7 @@ The component will be installed in the `vendor` folder of the root directory of 
 will make sure that the component is bootstrapped from that location and made available to other components extending it 
 or just making use of it.
 
-Out of the box, the commponent will attempt to store tags in a database table named `[component]_tags`. An SQL dump file may 
+Out of the box, the component will attempt to store tags in a database table named `[component]_tags`. An SQL dump file may 
 be found under the `/resources/install` directory for creating this database table. This database needs to be manually 
 created for the component to function properly. At the moment we only support MySQL.
 
@@ -47,4 +47,4 @@ Keep track of development and community news.
 * Read the [Joomlatools Developer Blog](https://www.joomlatools.com/developer/blog/)
 * Subscribe to the [Joomlatools Developer Newsletter](https://www.joomlatools.com/developer/newsletter/)
 
-[Joomlatools Framework]: http://www.joomlatools.com/developer/framework/
+[Joomlatools Framework]: https://www.joomlatools.com/developer/framework/
